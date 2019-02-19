@@ -31,17 +31,30 @@ Then select any of the following animatations to add to the classList:
 | `fadeIn` |
 | `fadeInSlow` |
 | `haltingStopRight` |
+| `rotClock` |
+| `rotCounterClock` |
+| `slideInRight` |
+| `slideInLeft` |
+| `slideInUp` |
+| `slideInDown` |
+| `squeeze` |
+| `flipInLeft` |
+| `flipInRight` |
+| `zoomOutLeft` |
+| `zoomOutRight` |
+| `flipX` |
+| `flipY` |
 
 and add one to the class list:
 
 ```html
-<h1 class="animateMe jiggle">Hello, World!</h1>
+<h1 class="animateMe squeeze">Hello, World!</h1>
 ```
 
 If you want it to repeat forever, add the infinite class:
 
 ```html
-<h1 class="animateMe infinite jiggle">Hello, World!</h1>
+<h1 class="animateMe infinite squeeze">Hello, World!</h1>
 ```
 
 ## License
