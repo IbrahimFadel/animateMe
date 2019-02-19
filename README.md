@@ -43,3 +43,7 @@ If you want it to repeat forever, add the infinite class:
 ```html
 <h1 class="animateMe infinite jiggle">Hello, World!</h1>
 ```
+
+## License
+
+[MIT](https://choosealicense.com/licenses/mit/)
