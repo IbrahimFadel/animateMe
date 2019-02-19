@@ -4,7 +4,7 @@ Quick Animations is a css animations library.
 
 ## Installation
 
-Download this project as [zip](https://github.com/IbrahimFadel/quickAnims/archive/master.zip)
+Download this project as [zip](https://github.com/IbrahimFadel/quickAnims/tree/master/dist)
 
 ## Usage
 
