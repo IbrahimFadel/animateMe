@@ -41,6 +41,21 @@
   .animateMe.squeeze {
     animation-name: squeeze;
     -webkit-animation-name: squeeze; }
+  .animateMe.fadeIn {
+    animation-name: fadeIn;
+    -webkit-animation-name: fadeIn; }
+  .animateMe.fadeInSlow {
+    animation-name: fadeInSlow;
+    -webkit-animation-name: fadeInSlow;
+    animation-duration: 3s; }
+  .animateMe.flipInLeft {
+    animation-name: flipInLeft;
+    -webkit-animation-name: flipInLeft;
+    transform-origin: 100% center; }
+  .animateMe.flipInRight {
+    animation-name: flipInRight;
+    -webkit-animation-name: flipInRight;
+    transform-origin: 100% center; }
 
 @keyframes bounce {
   0% {
@@ -195,3 +210,51 @@
     transform: scaleX(0.5); }
   100% {
     transform: scaleX(1); } }
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0; }
+  100% {
+    opacity: 1; } }
+
+@-webkit-keyframes fadeIn {
+  0% {
+    opacity: 0; }
+  100% {
+    opacity: 1; } }
+
+@keyframes fadeInSlow {
+  0% {
+    opacity: 0; }
+  100% {
+    opacity: 1; } }
+
+@-webkit-keyframes fadeInSlow {
+  0% {
+    opacity: 0; }
+  100% {
+    opacity: 1; } }
+
+@keyframes flipInLeft {
+  from {
+    transform: rotate(0.5turn); }
+  to {
+    transform: rotate(0turn); } }
+
+@-webkit-keyframes flipInLeft {
+  from {
+    transform: rotate(0.5turn); }
+  to {
+    transform: rotate(0turn); } }
+
+@keyframes flipInRight {
+  from {
+    transform: rotate(0.5turn); }
+  to {
+    transform: rotate(1turn); } }
+
+@-webkit-keyframes flipInRight {
+  from {
+    transform: rotate(0.5turn); }
+  to {
+    transform: rotate(1turn); } }
