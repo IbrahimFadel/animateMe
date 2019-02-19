@@ -24,6 +24,15 @@ To apply the animation give the element the 'animateMe' class:
 
 Then select any of the following animatations to add to the classList:
 
+| Animation Name |
+|-----------|
+| `bounce` |
+| `jiglle` |
+| `fadeIn` |
+| `fadeInSlow` |
+| `haltingStopRight` |
+
+
 Animation | #1 | #2 | #3 | #4 | #5 | #6 | #7 | #8 | #9 | #10 | #11
 --- | --- | --- | --- |--- |--- |--- |--- |--- |--- |--- |---
 Name | Bounce | 283 | 290 | 286 | 289 | 285 | 287 | 287 | 272 | 276 | 269
