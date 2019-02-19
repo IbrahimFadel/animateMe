@@ -1,0 +1,17 @@
+{
+  "name": "quickanims",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "css": "node-sass src/quickAnims.scss -o dist",
+    "css:watch": "npm run css && node-sass src/quickAnims.scss -wo dist && uglifycss dist/quickAnims.css > dist/quickAnims.min.css",
+    "css:min": "uglifycss dist/quickAnims.css > dist/quickAnims.min.css"
+  },
+  "dependencies": {
+  	"node-sass": "*"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
