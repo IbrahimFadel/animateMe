@@ -1,2 +1,4 @@
 .DS_Store/
+src/.DS_Store/
+src/fonts/.DS_Store/
 node_modules/
