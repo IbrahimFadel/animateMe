@@ -10,12 +10,15 @@
   animation-duration: 1s;
   -webkit-animation-fill-mode: both;
   animation-fill-mode: both;
+  /*position: relative;*/
+
   &.infinite {
     animation-iteration-count: infinite;
   }
   &.bounce {
     animation-name: bounce;
     -webkit-animation-name: bounce;
+    position: relative;
   }
   &.rotClock {
     animation-name: rotClock;
@@ -28,22 +31,27 @@
   &.slideInRight {
     animation-name: slideInRight;
     -webkit-animation-name: slideInRight;
+    position: relative;
   }
   &.slideInLeft {
     animation-name: slideInLeft;
     -webkit-animation-name: slideInLeft;
+    position: relative;
   }
   &.slideInUp {
     animation-name: slideInUp;
     -webkit-animation-name: slideInUp;
+    position: relative;
   }
   &.slideInDown {
     animation-name: slideInDown;
     -webkit-animation-name: slideInDown;
+    position: relative;
   }
   &.haltingStopRight {
     animation-name: haltingStopRight;
     -webkit-animation-name: haltingStopRight;
+    position: relative;
   }
   &.jiggle {
     animation-name: jiggle;
@@ -72,7 +80,22 @@
     -webkit-animation-name: flipInRight;
     transform-origin: 100% center;
   }
-
+  &.zoomOutLeft {
+    animation-name: zoomOutLeft;
+    -webkit-animation-name: zoomOutLeft;
+  }
+  &.zoomOutRight {
+    animation-name: zoomOutRight;
+    -webkit-animation-name: zoomOutRight;
+  }
+  &.flipX {
+    animation-name: flipX;
+    -webkit-animation-name: flipX;
+  }
+  &.flipY {
+    animation-name: flipY;
+    -webkit-animation-name: flipY;
+  }
 }
 
 @keyframes bounce {
@@ -160,16 +183,16 @@
 }
 
 @keyframes jiggle {
-  10% {transform: skew(15deg, 15deg)}
-  20% {transform: skew(25deg, 15deg)}
-  50% {transform: skew(-15deg, -15deg)}
+  10% {transform: skew(5deg, 5deg)}
+  20% {transform: skew(15deg, 15deg)}
+  50% {transform: skew(-5deg, -5deg)}
   100% {transform: skew(0deg, 0deg)}
 }
 
 @-webkit-keyframes jiggle {
-  10% {transform: skew(15deg, 15deg)}
-  20% {transform: skew(25deg, 15deg)}
-  50% {transform: skew(-15deg, -15deg)}
+  10% {transform: skew(5deg, 5deg)}
+  20% {transform: skew(15deg, 15deg)}
+  50% {transform: skew(-5deg, -5deg)}
   100% {transform: skew(0deg, 0deg)}
 }
 
@@ -225,5 +248,49 @@
 @-webkit-keyframes flipInRight {
   from {transform: rotate(.5turn); }
   to { transform: rotate(1turn); } 
+}
+
+@keyframes zoomOutLeft {
+  0% {transform: scale(1); right: 0px; bottom: 0px; opacity: 1;}
+  50% {transform: scale(.6); right: 0px; bottom: 100px; opacity: 1;}
+  100% {transform: scale(.6); right: 200px; bottom: 100px; opacity: 0;}
+}
+
+@-webkit-keyframes zoomOutLeft {
+  0% {transform: scale(1); right: 0px; bottom: 0px; opacity: 1;}
+  50% {transform: scale(.6); right: 0px; bottom: 50px; opacity: 1;}
+  100% {transform: scale(.6); right: 200px; bottom: 50px; opacity: 0;}
+}
+
+@keyframes zoomOutRight {
+  0% {transform: scale(1); left: 0px; bottom: 0px; opacity: 1;}
+  50% {transform: scale(.6); left: 0px; bottom: 100px; opacity: 1;}
+  100% {transform: scale(.6); left: 200px; bottom: 100px; opacity: 0;}
+}
+
+@-webkit-keyframes zoomOutRight {
+  0% {transform: scale(1); left: 0px; bottom: 0px; opacity: 1;}
+  50% {transform: scale(.6); left: 0px; bottom: 100px; opacity: 1;}
+  100% {transform: scale(.6); left: 200px; bottom: 100px; opacity: 0;}
+}
+
+@keyframes flipX {
+  0% {transform: rotate3d(1, 0, 0, 0deg);}
+  100% {transform: rotate3d(1, 0, 0, 360deg);}
+}
+
+@-webkit-keyframes flipX {
+  0% {transform: rotate3d(1, 0, 0, 0deg);}
+  100% {transform: rotate3d(1, 0, 0, 360deg);}
+}
+
+@keyframes flipY {
+  0% {transform: rotate3d(0, 1, 0, 0deg);}
+  100% {transform: rotate3d(0, 1, 0, 360deg);}
+}
+
+@-webkit-keyframes flipY {
+  0% {transform: rotate3d(0, 1, 0, 0deg);}
+  100% {transform: rotate3d(0, 1, 0, 360deg);}
 }
 

@@ -3,15 +3,66 @@
 <head>
 	<title>Quick Anims</title>
 
+	<link rel="stylesheet" type="text/css" href="src/buttons.css">
+	<link rel="stylesheet" type="text/css" href="src/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="src/index.css">
 	<link rel="stylesheet" type="text/css" href="dist/quickAnims.css">
 </head>
 <body>
-	<h1 style="margin-top: 300px; margin-left: 200px; width: 200px; height: 100px; position: relative;" class="animateMe flipInLeft">Hello, World!</h1>
+
+	<script type="text/javascript">
+		animating = false;
+		function addClass(name) {
+			document.getElementById("helloWorld").className = "";
+			animating = false;
+			if(animating == false) {
+			document.getElementById("helloWorld").classList.add("animateMe");
+			document.getElementById("helloWorld").classList.add(name);
+			if(document.getElementById("infinite").checked) {
+				document.getElementById("helloWorld").classList.add("infinite");
+			}
+			console.log(document.getElementById("helloWorld").classList);
+			animating = true;
+			setTimeout(function () {
+				if(document.getElementById("infinite").checked == false) {
+					document.getElementById("helloWorld").classList.remove(name);
+					console.log(document.getElementById("helloWorld").classList);
+					animating = false;
+				} else {
+				}
+		    }, 1000);
+		   }
+		}
+	</script>
+
+	<h1 class="animateMe fadeInSlow">Quick Animations</h1>
+	<h3 class="animateMe jiggle">By: Ibrahim Fadel</h3><br><br>
+
+	<div style="text-align: center;">
+		<input type="checkbox" id="infinite" name="infinite" value="infinite">Infinite<br>
+		<select id="select-anim">
+		  <option value="bounce">bounce</option>
+		  <option value="jiggle">jiggle</option>
+		  <option value="flipX">flipX</option>
+		  <option value="flipY">flipY</option>
+		  <option value="rotClock">rotClock</option>
+		  <option value="rotCounterClock">rotCounterClock</option>
+		  <option value="slideInRight">slideInRight</option>
+		  <option value="slideInLeft">slideInLeft</option>
+
+		  <option value="slideInUp">slideInUp</option>
+		  <option value="slideInDown">slideInDown</option>
+		  <option value="haltingStopRight">haltingStopRight</option>
+		  <option value="squeeze">squeeze</option>
+		  <option value="fadeIn">fadeIn</option>
+		  <option value="fadeInSlow">fadeInSlow</option>
+		  <option value="flipInLeft">flipInLeft</option>
+		  <option value="flipInRight">flipInRight</option>
+		  
+		  
+		</select><br><br><br>
+		<h3 id="helloWorld">Hello, World!</h3><br><br>
+		<button class="button primary" onclick="addClass(document.getElementById('select-anim').value)">Animate!</button>
+	</div>
 </body>
 </html>
-
-
-
-
-<!-- <div 
-style="width: 100px; height: 100px; background-color: red; position: relative; animation-name: --box; animation-duration: 5s" class="--box"></div> -->
