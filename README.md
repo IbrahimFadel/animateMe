@@ -27,12 +27,19 @@ Then select any of the following animatations to add to the classList:
 | Animation Name |
 |-----------|
 | `bounce` |
-| `jiglle` |
+| `jiggle` |
 | `fadeIn` |
 | `fadeInSlow` |
 | `haltingStopRight` |
 
+and add one to the class list:
 
-Animation | #1 | #2 | #3 | #4 | #5 | #6 | #7 | #8 | #9 | #10 | #11
---- | --- | --- | --- |--- |--- |--- |--- |--- |--- |--- |---
-Name | Bounce | 283 | 290 | 286 | 289 | 285 | 287 | 287 | 272 | 276 | 269
+```html
+<h1 class="animateMe jiggle">Hello, World!</h1>
+```
+
+If you want it to repeat forever, add the infinite class:
+
+```html
+<h1 class="animateMe infinite jiggle">Hello, World!</h1>
+```
