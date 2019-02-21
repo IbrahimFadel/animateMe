@@ -96,6 +96,12 @@
     animation-name: flipY;
     -webkit-animation-name: flipY;
   }
+  &.pixar {
+    animation-name: pixar;
+    -webkit-animation-name: pixar;
+    position: relative;
+    animation-duration: 4s;
+  }
 }
 
 @keyframes bounce {
@@ -292,5 +298,27 @@
 @-webkit-keyframes flipY {
   0% {transform: rotate3d(0, 1, 0, 0deg);}
   100% {transform: rotate3d(0, 1, 0, 360deg);}
+}
+
+@keyframes pixar {
+  0% {transform: rotateZ(0deg) scaleX(1); bottom: 0px;}
+  20% {transform: rotateZ(90deg) scaleX(1); bottom: 0px;}
+  70% {transform: rotateZ(90deg) scaleX(.3); bottom: 0px;}
+  75% {transform: rotateZ(90deg) scaleX(1); bottom: 100px;}
+  80% {transform: rotateZ(90deg) scaleX(.3); bottom: 0px;}
+  85% {transform: rotateZ(90deg) scaleX(1); bottom: 100px;}
+  90% {transform: rotateZ(90deg) scaleX(.3); bottom: 0px;}
+  95% {transform: rotateZ(90deg) scaleX(1); bottom: 100px;}
+  100% {transform: rotateZ(0deg) scaleX(1); bottom: 0px;}
+}
+
+@-webkit-keyframes pixar {
+  0% {transform: rotateZ(0deg) scaleX(1); bottom: 0px;}
+  20% {transform: rotateZ(90deg) scaleX(1); bottom: 0px;}
+  40% {transform: rotateZ(90deg) scaleX(.3); bottom: 0px;}
+  60% {transform: rotateZ(90deg) scaleX(1); bottom: 100px;}
+  70% {transform: rotateZ(90deg) scaleX(.3); bottom: 0px;}
+  80% {transform: rotateZ(90deg) scaleX(1); bottom: 100px;}
+  100% {transform: rotateZ(0deg) scaleX(1); bottom: 0px;}
 }
 
