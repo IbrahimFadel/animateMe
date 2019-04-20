@@ -88,7 +88,7 @@ function isInfinite(config) {
  * @return {ARRAY} Animation config in usable format
  */
 
-function parseConfigInfo(config) {
+function parseConfig(config) {
     var targets = getTargets(config);
     var animations = getAnimations(config);
     var infinite = isInfinite(config);
@@ -111,6 +111,7 @@ function applyAnimations(config) {
     var infinite = config[2];
 
     for (let i = 0; i < amntTargets; i++) {
+        let transformationString = "";
         for (let x = 0; x < amntAnimations; x++) {
             let target = config[0][x];
             let animation = config[1][x][0];
@@ -118,7 +119,33 @@ function applyAnimations(config) {
             let duration = config[1][x][2];
             let easing = config[1][x][3];
             let value = config[1][x][4];
-            console.log(target, animation, delay, duration, easing, value);
+            // console.log(target, animation, delay, duration, easing, value);
+            // console.log(document.getElementsByClassName(target));
+            let transforms = "translateX translateY scaleX scaleY rotate skewX skewY".split(
+                " "
+            );
+
+            for (let z = 0; z < transforms.length; z++) {
+                if (animation === transforms[z]) {
+                    // console.log(animation);
+                    transformationString += animation + "(" + value + ")";
+                    console.log(transformationString);
+                }
+            }
+
+            let amntElements = document.getElementsByClassName(target).length;
+            for (let z = 0; z < amntElements; z++) {
+                setTimeout(() => {
+                    document.getElementsByClassName(target)[
+                        z
+                    ].style.transition = "all " + duration + " " + easing;
+                    // console.log(transformationString);
+                    document.getElementsByClassName(target)[
+                        z
+                    ].style.transform = transformationString;
+                }, delay);
+            }
+            // transformationString = "";
         }
     }
 }
@@ -130,7 +157,7 @@ function applyAnimations(config) {
  */
 
 function animate(config) {
-    var configData = parseConfigInfo(config);
+    var configData = parseConfig(config);
     applyAnimations(configData);
 }
 
@@ -139,14 +166,20 @@ animate({
     animations: {
         translateX: {
             value: "100px",
-            delay: "1000",
-            duration: "1000",
+            delay: "0",
+            duration: "3s",
             easing: "ease"
         },
         rotate: {
-            value: "60deg",
-            delay: "500",
-            duration: "500",
+            value: "10deg",
+            delay: "0",
+            duration: "3s",
+            easing: "ease"
+        },
+        skewX: {
+            value: "20deg",
+            delay: "3s",
+            duration: "1s",
             easing: "ease"
         }
     },
