@@ -1,17 +1,19 @@
 {
-  "name": "quickanims",
-  "version": "1.0.0",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "css": "node-sass src/quickAnims.scss -o dist",
-    "css:watch": "npm run css && node-sass src/quickAnims.scss -wo dist && uglifycss dist/quickAnims.css > dist/quickAnims.min.css",
-    "css:min": "uglifycss dist/quickAnims.css > dist/quickAnims.min.css"
-  },
-  "dependencies": {
-  	"node-sass": "*"
-  },
-  "author": "",
-  "license": "ISC",
-  "description": ""
+    "name": "quickanims",
+    "version": "1.0.0",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "css": "node-sass src/scss/quickAnims.scss -o dist",
+        "css:watch": "npm run css && node-sass src/scss/quickAnims.scss -wo dist/css",
+        "css:min": "uglifycss dist/quickAnims.css > dist/quickAnims.min.css",
+        "dist:js": "copyfiles --flat src/js/*.js dist/js"
+    },
+    "dependencies": {
+        "copyfiles": "^2.1.0",
+        "node-sass": "*"
+    },
+    "author": "",
+    "license": "ISC",
+    "description": ""
 }
