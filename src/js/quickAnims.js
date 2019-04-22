@@ -5,7 +5,7 @@
  * @return {ARRAY} targets
  */
 
-function getTargets(config) {
+getTargets = config => {
     var configLength = Object.keys(config).length;
     for (let i = 0; i < configLength; i++) {
         var keys = Object.keys(config);
@@ -22,7 +22,7 @@ function getTargets(config) {
     }
 
     return targets;
-}
+};
 
 /*
  * Get all animations and their info and return them in a usable format
@@ -31,7 +31,7 @@ function getTargets(config) {
  * @return {ARRAY} animations
  */
 
-function getAnimations(config) {
+getAnimations = config => {
     var animations = [];
     var keys = Object.keys(config);
     for (let i = 0; i < keys.length; i++) {
@@ -60,7 +60,7 @@ function getAnimations(config) {
         }
     }
     return animations;
-}
+};
 
 /*
  * See if animation is infinite
@@ -69,7 +69,7 @@ function getAnimations(config) {
  * @return {BOOLEAN} isInfinite
  */
 
-function isInfinite(config) {
+isInfinite = config => {
     var infinite;
     var keys = Object.keys(config);
     for (let i = 0; i < keys.length; i++) {
@@ -79,7 +79,7 @@ function isInfinite(config) {
     }
 
     return infinite;
-}
+};
 
 /*
  * Get animation config into usable format
@@ -88,7 +88,7 @@ function isInfinite(config) {
  * @return {ARRAY} Animation config in usable format
  */
 
-function parseConfig(config) {
+parseConfig = config => {
     var targets = getTargets(config);
     var animations = getAnimations(config);
     var infinite = isInfinite(config);
@@ -96,7 +96,31 @@ function parseConfig(config) {
     var parsedConfigInfo = [targets, animations, infinite];
 
     return parsedConfigInfo;
-}
+};
+
+/*
+ * Take in animation info, and return that in a string format that can be applied to
+ * an html element
+ *
+ * @params {ARRAY} animationInfo, {STRING} current string in proper format
+ * @return {STRING} string in proper format
+ */
+
+translateAnimToString = (anim, animString) => {
+    let name = anim[0];
+    let val = anim[4];
+    animString += name + "(" + val + ")";
+
+    return animString;
+};
+
+applyDelayDuration = (anim, el) => {
+    // console.log(anim, el);
+    let duration = anim[2];
+    let easing = anim[3];
+    el.style.transition = "transform" + " " + duration + " " + easing;
+    console.log(duration, easing);
+};
 
 /*
  * Apply animations
@@ -104,51 +128,24 @@ function parseConfig(config) {
  * @params {ARRAY} Animation config in usable format
  */
 
-function applyAnimations(config) {
-    // console.log(config);
-    var amntTargets = config[0].length;
-    var amntAnimations = config[1].length;
-    var infinite = config[2];
-
-    for (let i = 0; i < amntTargets; i++) {
-        let transformationString = "";
-        for (let x = 0; x < amntAnimations; x++) {
-            let target = config[0][x];
-            let animation = config[1][x][0];
-            let delay = config[1][x][1];
-            let duration = config[1][x][2];
-            let easing = config[1][x][3];
-            let value = config[1][x][4];
-            // console.log(target, animation, delay, duration, easing, value);
-            // console.log(document.getElementsByClassName(target));
-            let transforms = "translateX translateY scaleX scaleY rotate skewX skewY".split(
-                " "
-            );
-
-            for (let z = 0; z < transforms.length; z++) {
-                if (animation === transforms[z]) {
-                    // console.log(animation);
-                    transformationString += animation + "(" + value + ")";
-                    console.log(transformationString);
-                }
-            }
-
-            let amntElements = document.getElementsByClassName(target).length;
-            for (let z = 0; z < amntElements; z++) {
-                setTimeout(() => {
-                    document.getElementsByClassName(target)[
-                        z
-                    ].style.transition = "all " + duration + " " + easing;
-                    // console.log(transformationString);
-                    document.getElementsByClassName(target)[
-                        z
-                    ].style.transform = transformationString;
-                }, delay);
-            }
-            // transformationString = "";
-        }
-    }
-}
+applyAnimations = config => {
+    let animString = "";
+    config[1].forEach((anim, i) => {
+        animString = translateAnimToString(anim, animString);
+        config[0].forEach((target, i) => {
+            let elements = document.getElementsByClassName(target);
+            Array.prototype.forEach.call(elements, (el, i) => {
+                applyDelayDuration(anim, el);
+            });
+        });
+    });
+    config[0].forEach((target, i) => {
+        let elements = document.getElementsByClassName(target);
+        Array.prototype.forEach.call(elements, (el, i) => {
+            el.style.transform = animString;
+        });
+    });
+};
 
 /*
  * User calls this to make their animation
@@ -170,17 +167,11 @@ animate({
             duration: "3s",
             easing: "ease"
         },
-        rotate: {
-            value: "10deg",
-            delay: "0",
-            duration: "3s",
-            easing: "ease"
-        },
         skewX: {
-            value: "20deg",
-            delay: "3s",
-            duration: "1s",
-            easing: "ease"
+            value: "25deg",
+            delay: "1000",
+            duration: "2s",
+            easing: "linear"
         }
     },
     infinite: false
