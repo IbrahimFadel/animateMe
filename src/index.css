@@ -48,7 +48,8 @@ h5 {
 }
 
 .testElement,
-.nine {
+.nine,
+#idTarget {
     width: 100px;
     height: 100px;
     background-color: red;
