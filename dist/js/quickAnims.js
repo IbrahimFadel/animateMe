@@ -1,187 +1,204 @@
+function wait(mil) {
+    return new Promise(resolve => {
+        setTimeout(() => {
+            resolve("resolved");
+        }, mil);
+    });
+}
+
 /*
- * Get all target in the config and return them in a usable format
+ * Get all the targets and organize them into classes and ids
  *
  * @param {OBJECT} config
  * @return {ARRAY} targets
  */
 
 function getTargets(config) {
-    var configLength = Object.keys(config).length;
-    for (let i = 0; i < configLength; i++) {
-        var keys = Object.keys(config);
-        if (keys[i] === "targets") {
-            if (Object.values(Object.values(config))[i].includes(".")) {
-                var targets = Object.values(Object.values(config))[i].split(
-                    " "
-                );
-            }
+    const amntObjectKeys = Object.keys(config).length;
+    let targetsString = null;
+    for (let i = 0; i < amntObjectKeys; i++) {
+        const currentObjectKey = Object.keys(config)[i];
+        const currentObjectValue = Object.values(config)[i];
+        if (currentObjectKey === "targets") {
+            targetsString = currentObjectValue;
         }
     }
-    for (let i = 0; i < targets.length; i++) {
-        targets[i] = targets[i].replace(".", "");
+    const targetsArray = targetsString.split(" ");
+    let classTargets = [];
+    let idTargets = [];
+    for (let target of targetsArray) {
+        const targetPrefix = target.slice(0, 1);
+        if (targetPrefix === ".") {
+            const targetCharArr = target.split("");
+            targetCharArr.splice(0, 1);
+            const targetWithoutPrefix = targetCharArr.join("");
+            classTargets.push(targetWithoutPrefix);
+        } else if (targetPrefix === "#") {
+            const targetCharArr = target.split("");
+            targetCharArr.splice(0, 1);
+            const targetWithoutPrefix = targetCharArr.join("");
+            idTargets.push(targetWithoutPrefix);
+        }
     }
+    const targets = [classTargets, idTargets];
 
     return targets;
 }
 
 /*
- * Get all animations and their info and return them in a usable format
+ * Get all the settings(infinite, delay, duration, easing)
+ *
+ * @param {OBJECT} config
+ * @return {OBJECT} settings
+ */
+
+function getAnimationSettings(config) {
+    const configKeys = Object.keys(config);
+    const configValues = Object.values(config);
+    let settings = {};
+    configKeys.forEach((key, i) => {
+        let value = configValues[i];
+        if (key === "infinite") {
+            settings.infinite = value;
+        } else if (key === "delay") {
+            settings.delay = value;
+        } else if (key === "duration") {
+            settings.duration = value;
+        } else if (key === "easing") {
+            settings.easing = value;
+        }
+    });
+
+    return settings;
+}
+
+/*
+ * Find all the animation names and their values
  *
  * @param {OBJECT} config
  * @return {ARRAY} animations
  */
 
 function getAnimations(config) {
-    var animations = [];
-    var keys = Object.keys(config);
-    for (let i = 0; i < keys.length; i++) {
-        if (keys[i] === "animations") {
-            let animationsObject = Object.values(config)[i];
-            let delay, duration, easing, value;
-            let names = Object.keys(animationsObject);
-            for (let x = 0; x < names.length; x++) {
-                let animationName = Object.keys(animationsObject)[x];
-                let animationObject = Object.values(animationsObject)[x];
-                let amntKeys = Object.keys(animationObject).length;
-                for (let y = 0; y < amntKeys; y++) {
-                    if (Object.keys(animationObject)[y] === "delay") {
-                        delay = Object.values(animationObject)[y];
-                    } else if (Object.keys(animationObject)[y] === "duration") {
-                        duration = Object.values(animationObject)[y];
-                    } else if (Object.keys(animationObject)[y] === "easing") {
-                        easing = Object.values(animationObject)[y];
-                    } else if (Object.keys(animationObject)[y] === "value") {
-                        value = Object.values(animationObject)[y];
-                    }
-                }
-                var animation = [animationName, delay, duration, easing, value];
+    const configKeys = Object.keys(config);
+    const configValues = Object.values(config);
+    let animations = [];
+    configKeys.forEach((configKey, i) => {
+        let configValue = configValues[i];
+        if (configKey === "animations") {
+            const animationKeys = Object.keys(configValue);
+            const animationValues = Object.values(configValue);
+            animationKeys.forEach((animationKey, x) => {
+                const animationValue = animationValues[x].value;
+                const animation = [animationKey, animationValue];
                 animations.push(animation);
-            }
+            });
         }
-    }
+    });
+
     return animations;
 }
 
 /*
- * See if animation is infinite
+ * Find all of the information in the config
  *
  * @param {OBJECT} config
- * @return {BOOLEAN} isInfinite
- */
-
-function isInfinite(config) {
-    var infinite;
-    var keys = Object.keys(config);
-    for (let i = 0; i < keys.length; i++) {
-        if (keys[i] === "infinite") {
-            infinite = Object.values(Object.values(config))[i];
-        }
-    }
-
-    return infinite;
-}
-
-/*
- * Get animation config into usable format
- *
- * @params {OBJECT} Animation config
- * @return {ARRAY} Animation config in usable format
+ * @return {ARRAY} parsed config
  */
 
 function parseConfig(config) {
-    var targets = getTargets(config);
-    var animations = getAnimations(config);
-    var infinite = isInfinite(config);
+    const targets = getTargets(config);
+    const settings = getAnimationSettings(config);
+    const animations = getAnimations(config);
 
-    var parsedConfigInfo = [targets, animations, infinite];
+    const parsedConfig = [targets, settings, animations];
 
-    return parsedConfigInfo;
+    return parsedConfig;
 }
 
 /*
- * Apply animations
+ * When applying transformations with javascript, we need to put it
+ * all on one line. This function takes in the animations, and creates
+ * the single line with all the transformations
  *
- * @params {ARRAY} Animation config in usable format
+ * @param {ARRAY} animations
+ * @return {STRING} transformation string
  */
 
-function applyAnimations(config) {
-    // console.log(config);
-    var amntTargets = config[0].length;
-    var amntAnimations = config[1].length;
-    var infinite = config[2];
+function createTransformString(animations) {
+    var transformString = "";
 
-    for (let i = 0; i < amntTargets; i++) {
-        let transformationString = "";
-        for (let x = 0; x < amntAnimations; x++) {
-            let target = config[0][x];
-            let animation = config[1][x][0];
-            let delay = config[1][x][1];
-            let duration = config[1][x][2];
-            let easing = config[1][x][3];
-            let value = config[1][x][4];
-            // console.log(target, animation, delay, duration, easing, value);
-            // console.log(document.getElementsByClassName(target));
-            let transforms = "translateX translateY scaleX scaleY rotate skewX skewY".split(
-                " "
-            );
-
-            for (let z = 0; z < transforms.length; z++) {
-                if (animation === transforms[z]) {
-                    // console.log(animation);
-                    transformationString += animation + "(" + value + ")";
-                    console.log(transformationString);
-                }
-            }
-
-            let amntElements = document.getElementsByClassName(target).length;
-            for (let z = 0; z < amntElements; z++) {
-                setTimeout(() => {
-                    document.getElementsByClassName(target)[
-                        z
-                    ].style.transition = "all " + duration + " " + easing;
-                    // console.log(transformationString);
-                    document.getElementsByClassName(target)[
-                        z
-                    ].style.transform = transformationString;
-                }, delay);
-            }
-            // transformationString = "";
-        }
+    const amntAnimations = animations.length;
+    for (let i = 0; i < amntAnimations; i++) {
+        const animationName = animations[i][0];
+        const animationValue = animations[i][1];
+        transformString += animationName + "(" + animationValue + ")";
     }
+
+    return transformString;
 }
 
 /*
- * User calls this to make their animation
+ * Apply all the animations with delay, duration, and easing
  *
  * @param {OBJECT} config
  */
 
-function animate(config) {
-    var configData = parseConfig(config);
-    applyAnimations(configData);
+async function applyAnimations(config) {
+    const targets = config[0];
+    const settings = config[1];
+    const animations = config[2];
+
+    const delay = settings.delay;
+    const duration = settings.duration;
+    const easing = settings.easing;
+    const infinite = settings.infinite;
+
+    const transformString = createTransformString(animations);
+
+    setTimeout(() => {
+        for (let i = 0; i < targets.length; i++) {
+            if (i === 0) {
+                // It's a class
+                for (let x = 0; x < targets[i].length; x++) {
+                    const currentElements = document.getElementsByClassName(
+                        targets[i][x]
+                    );
+                    for (let j = 0; j < currentElements.length; j++) {
+                        currentElements[j].style.transition =
+                            "transform " + duration + " " + easing;
+                        currentElements[j].style.transform = transformString;
+                    }
+                }
+            } else if (i === 1) {
+                // It's an id
+                for (let x = 0; x < targets[i].length; x++) {
+                    const currentElement = document.getElementById(
+                        targets[i][x]
+                    );
+                    currentElement.style.transition =
+                        "transform " + duration + " " + easing;
+                    currentElement.style.transform = transformString;
+                }
+            }
+        }
+    }, delay);
+
+    const delayPlusDuration =
+        parseInt(delay) + parseInt(duration.slice(0, -1) + "000");
+
+    await wait(delayPlusDuration);
 }
 
-animate({
-    targets: ".testElement .nine",
-    animations: {
-        translateX: {
-            value: "100px",
-            delay: "0",
-            duration: "3s",
-            easing: "ease"
-        },
-        rotate: {
-            value: "10deg",
-            delay: "0",
-            duration: "3s",
-            easing: "ease"
-        },
-        skewX: {
-            value: "20deg",
-            delay: "3s",
-            duration: "1s",
-            easing: "ease"
-        }
-    },
-    infinite: false
-});
+/*
+ * Main function of library
+ *
+ * @param {OBJECT} config
+ *
+ * ENJOY!
+ */
+
+async function animateMe(config) {
+    const parsedConfig = parseConfig(config);
+    await applyAnimations(parsedConfig);
+}

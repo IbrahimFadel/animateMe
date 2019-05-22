@@ -7,11 +7,13 @@
         "css": "node-sass src/scss/quickAnims.scss -o dist",
         "css:watch": "npm run css && node-sass src/scss/quickAnims.scss -wo dist/css",
         "css:min": "uglifycss dist/quickAnims.css > dist/quickAnims.min.css",
-        "dist:js": "copyfiles --flat src/js/*.js dist/js"
+        "dist:js": "copyfiles --flat src/js/*.js dist/js",
+        "ugly:js": "uglifyjs dist/js/quickAnims.js -o dist/js/quickAnims.min.js"
     },
     "dependencies": {
         "copyfiles": "^2.1.0",
-        "node-sass": "*"
+        "node-sass": "*",
+        "uglify-js": "^3.5.15"
     },
     "author": "",
     "license": "ISC",
