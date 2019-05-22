@@ -1,6 +1,6 @@
-# Quick Animations
+# AnimateMe
 
-Quick Animations is a css animations library.
+AnimateMe is an animation library i made for CSS and JS
 
 ## Demo
 
@@ -12,10 +12,40 @@ Download this project as [zip](https://github.com/IbrahimFadel/quickAnims/tree/m
 
 ## Usage
 
+### JS
+
+Include the quickAnims.js or quickAnims.min.js file:
+
+```html
+<link rel="stylesheet" type="text/css" href="dist/js/quickAnims.js">
+```
+
+To apply an animation:
+
+```js
+animateMe({
+  targets: ".targetElement #otherTarget",
+  animations: {
+    translateX: {
+      value: "300px"
+    },
+    skewX: {
+      value: "30deg"
+    }
+  },
+  infinite: false,
+  delay: "1000m",
+  duration: "2s",
+  easing: "linear"
+});
+```
+
+### CSS
+
 Include the quickAnims.css file:
 
 ```html
-<link rel="stylesheet" type="text/css" href="dist/quickAnims.css">
+<link rel="stylesheet" type="text/css" href="dist/css/quickAnims.css">
 ```
 
 To apply the animation give the element the 'animateMe' class:
