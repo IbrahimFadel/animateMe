@@ -34,7 +34,7 @@ animateMe({
     }
   },
   infinite: false,
-  delay: "1000m",
+  delay: 1000,
   duration: "2s",
   easing: "linear"
 });
