@@ -7,6 +7,7 @@ AnimateMe is an animation library i made for CSS and JS
 CSS
 
 1. Support for combining animation
+2. Delay
 
 JS
 
