@@ -2,9 +2,19 @@
 
 AnimateMe is an animation library i made for CSS and JS
 
+## TODO
+
+CSS
+
+1. Support for combining animation
+
+JS
+
+1. Chain animations with .then
+
 ## Demo
 
-View Demo [here](https://ibrahimfadel.com/quickAnim.html)
+View Demo [here](https://animateme.ibrahimfadel.com)
 
 ## Installation
 
