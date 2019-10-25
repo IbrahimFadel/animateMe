@@ -25,10 +25,10 @@ Download this project as [zip](https://github.com/IbrahimFadel/quickAnims/tree/m
 
 ### JS
 
-Include the quickAnims.js or quickAnims.min.js file:
+Include the animateMe.js or animateMe.min.js file:
 
 ```html
-<link rel="stylesheet" type="text/css" href="dist/js/quickAnims.js">
+<script src="dist/js/animateMe.js"></script>
 ```
 
 To apply an animation:
@@ -53,10 +53,10 @@ animateMe({
 
 ### CSS
 
-Include the quickAnims.css file:
+Include the animateMe.css file:
 
 ```html
-<link rel="stylesheet" type="text/css" href="dist/css/quickAnims.css">
+<link rel="stylesheet" type="text/css" href="dist/css/animateMe.css">
 ```
 
 To apply the animation give the element the 'animateMe' class:
